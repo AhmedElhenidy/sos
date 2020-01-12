@@ -10,7 +10,9 @@ class User {
   String trustee2Name ;
   String trustee2Phone ;
   String emergencyMessage ;
-  User({this.name,this.phone,this.age,this.bloodType,this.city,this.emergencyMessage,
+  String password ;
+  int alert;
+  User({this.name,this.password,this.phone,this.age,this.alert,this.bloodType,this.city,this.emergencyMessage,
     this.trustee1Name,this.trustee1Phone,this.trustee2Name,this.trustee2Phone});
 }
 
@@ -34,6 +36,8 @@ class LocalData{
       await prefs.setString("city", user.city);
       await prefs.setString("bloodType", user.bloodType);
       await prefs.setString("age", user.age);
+      await prefs.setString("password", user.password);
+      await prefs.setInt("alert", user.alert);
       return true ;
     }catch(Exception){
       print("save to shared faild   :  $Exception");
@@ -52,7 +56,9 @@ class LocalData{
         trustee1Name:prefs.getString("trustee1Name") ,
         trustee1Phone:prefs.getString("trustee1Phone") ,
         trustee2Name: prefs.getString("trustee2Name"),
-        trustee2Phone:prefs.getString("trustee2Phone")
+        trustee2Phone:prefs.getString("trustee2Phone"),
+      password:prefs.getString("password"),
+      alert: prefs.get("alert"),
     );
   }
 }

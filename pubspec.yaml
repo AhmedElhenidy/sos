@@ -25,6 +25,9 @@ dependencies:
   cupertino_icons: ^0.1.2
   url_launcher:
   shared_preferences: ^0.4.3
+  hardware_buttons: ^1.0.0
+  flutter_sms: ^1.1.0
+  call_number: ^0.0.1
 
 dev_dependencies:
   flutter_test:

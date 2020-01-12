@@ -5,7 +5,6 @@ class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
-
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,6 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
-
                 Text("Name:",
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -82,7 +80,6 @@ class _SignInState extends State<SignIn> {
                       )
                   ),
                 ),
-
                 SizedBox(
                   height: 50,
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sos/ui/splash_screen.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

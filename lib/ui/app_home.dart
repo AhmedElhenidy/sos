@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sos/model/user.dart';
 import 'package:sos/statics/colors.dart';
 import 'package:sos/ui/yes_condition.dart';
 class AppHome extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

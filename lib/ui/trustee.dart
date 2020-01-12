@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:sos/model/user.dart';
 import 'package:sos/statics/colors.dart';
 import 'package:sos/ui/settings.dart';
 class Trustee extends StatefulWidget {
+  User user;
+  Trustee(this.user);
   @override
   _TrusteeState createState() => _TrusteeState();
 }
 
 class _TrusteeState extends State<Trustee> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController name =TextEditingController();
+  TextEditingController name2 =TextEditingController();
+  TextEditingController phone =TextEditingController();
+  TextEditingController phone2 =TextEditingController();
+  User user ;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.user=widget.user;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +33,7 @@ class _TrusteeState extends State<Trustee> {
             padding: EdgeInsets.only(left: 16,right: 16,bottom: 32,top: 0),
             width: MediaQuery.of(context).size.width,
             child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 textDirection: TextDirection.ltr,
@@ -80,6 +96,13 @@ class _TrusteeState extends State<Trustee> {
                     ),
                   ),
                   TextFormField(
+                    controller: name,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -97,6 +120,13 @@ class _TrusteeState extends State<Trustee> {
                     ),
                   ),
                   TextFormField(
+                    controller: phone,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -140,6 +170,7 @@ class _TrusteeState extends State<Trustee> {
                     ),
                   ),
                   TextFormField(
+                    controller: name2,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -157,6 +188,7 @@ class _TrusteeState extends State<Trustee> {
                     ),
                   ),
                   TextFormField(
+                    controller: phone2,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -172,8 +204,15 @@ class _TrusteeState extends State<Trustee> {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => AdjustSettings()));
+                        if(_formKey.currentState.validate()){
+                          user.trustee1Name=name.text;
+                          user.trustee1Phone=phone.text;
+                          user.trustee2Name=name2.text;
+                          user.trustee2Phone=phone2.text;
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (BuildContext context) => AdjustSettings(this.user)));
+                        }
+
                       },
                       child: Container(
                         decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sos/model/user.dart';
 import 'package:sos/statics/colors.dart';
 import 'package:sos/ui/trustee.dart';
 class PersonalData extends StatefulWidget {
@@ -7,10 +8,17 @@ class PersonalData extends StatefulWidget {
 }
 
 class _PersonalDataState extends State<PersonalData> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController name =TextEditingController();
+  TextEditingController phone =TextEditingController();
+  TextEditingController age =TextEditingController();
+  TextEditingController bloodType =TextEditingController();
+  TextEditingController city =TextEditingController();
+  TextEditingController password =TextEditingController();
+  User user =User();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: SOSColors.backGround,
       body: Padding(
         padding: const EdgeInsets.only(top:54.0),
@@ -19,6 +27,7 @@ class _PersonalDataState extends State<PersonalData> {
             padding: EdgeInsets.only(left: 16,right: 16,bottom: 32,top: 0),
             width: MediaQuery.of(context).size.width,
             child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 textDirection: TextDirection.ltr,
@@ -46,8 +55,7 @@ class _PersonalDataState extends State<PersonalData> {
                       ),
                     ),
                   ),
-
-                  Text("Name:",
+                  Text("Name:*",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 18,
@@ -56,6 +64,13 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: name,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -73,6 +88,13 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: phone,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -90,6 +112,13 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: age,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -107,6 +136,7 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: bloodType,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -124,6 +154,7 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: city,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: SOSColors.greenLight,
@@ -141,6 +172,13 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                   ),
                   TextFormField(
+                    controller: password,
+                    validator: (val){
+                      if(val.isEmpty){
+                        return "this field is required";
+                      }
+                      return null;
+                    },
                     obscureText: true,
                     autocorrect: false,
                     decoration: InputDecoration(
@@ -158,8 +196,17 @@ class _PersonalDataState extends State<PersonalData> {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => Trustee()));
+                        if(_formKey.currentState.validate()){
+                          user.name=name.text;
+                          user.phone=phone.text;
+                          user.age=age.text;
+                          user.bloodType=bloodType.text;
+                          user.city=city.text;
+                          user.password=password.text;
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (BuildContext context) => Trustee(user)));
+                        }
+
                       },
                       child: Container(
                         decoration: BoxDecoration(

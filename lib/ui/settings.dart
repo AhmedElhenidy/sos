@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:sos/model/user.dart';
 import 'package:sos/statics/colors.dart';
 import 'package:sos/ui/app_home.dart';
 class AdjustSettings extends StatefulWidget {
+  User user ;
+  AdjustSettings(this.user);
   @override
   _AdjustSettingsState createState() => _AdjustSettingsState();
 }
-
 class _AdjustSettingsState extends State<AdjustSettings> {
+  TextEditingController message =TextEditingController();
   bool check=false;
+  User user ;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.user=widget.user;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +59,6 @@ class _AdjustSettingsState extends State<AdjustSettings> {
               SizedBox(
                 height: 20,
               ),
-
              InkWell(
                onTap: (){
                  setState(() {
@@ -78,11 +87,10 @@ class _AdjustSettingsState extends State<AdjustSettings> {
                        borderRadius: BorderRadius.circular(8),
                        border: Border.all(
                          width: 1,
-
                        )
                      ),
                      child: Center(
-                       child: Text("Send an alert on power button press",
+                       child: Text("Send an alert on Volume button press",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18
@@ -123,6 +131,7 @@ class _AdjustSettingsState extends State<AdjustSettings> {
               Container(
                 height: 40,
                 child: TextField(
+                  controller: message,
                   decoration: InputDecoration(
                     hintText: 'Ex: “I’m in danger, HELP ME!”',
                       border: OutlineInputBorder(
@@ -138,8 +147,13 @@ class _AdjustSettingsState extends State<AdjustSettings> {
                 alignment: Alignment.bottomCenter,
                 child: InkWell(
                   onTap: (){
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => AppHome()));
+                    user.alert=check?1:0;
+                    user.emergencyMessage =message.text.isEmpty?"help I`m in danger":message.text;
+                    LocalData.saveUser(user).then((bol){
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (BuildContext context) => AppHome()));
+                    });
+
                   },
                   child: Container(
                     decoration: BoxDecoration(
